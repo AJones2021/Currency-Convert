@@ -1,0 +1,86 @@
+import {LineEdit, Button, VerticalBox, HorizontalBox} from "std-widgets.slint";
+export component AppWindow inherits Window {
+    in property <string> results: "";
+    callback calc-convert(string, string, string);
+
+    width: 375px;
+    height: 250px;
+    background:#536872;
+    title:"Currency Converter";
+    icon: @image-url("money-sign.png");
+
+      VerticalBox {
+      padding: 5px;
+      spacing: 20px;
+      alignment: start;
+
+        Text{
+           text:"Currency Converter";
+           font-size:24px;
+           font-family: "Times New Roman";
+           horizontal-alignment: center;
+
+        }
+        HorizontalLayout{
+            alignment: center;
+            Rectangle{
+                Text{
+                    text: "Amount";
+                    font-family: "Times New Roman";
+                }
+                amountcon:= LineEdit{
+                    placeholder-text: "0.00";
+                }
+            }
+        }
+        HorizontalLayout{
+            alignment:space-between;
+            padding: 20px;
+            Rectangle{
+                width: 125px;
+                Text{
+                    text: "From";
+                    font-family: "Times New Roman";
+                }
+                havecon:= LineEdit{
+                    placeholder-text: "USD";
+                }
+            }
+            Rectangle{
+                width: 125px;
+                Text{
+                    text: "To";
+                    font-family: "Times New Roman";
+                    }
+                wantcon:= LineEdit{
+                     placeholder-text: "EUR";
+                        }
+            }
+        }
+        HorizontalLayout{
+            alignment: center;
+
+            Rectangle{
+                Button{
+                    text:"Convert";
+                    width: 125px;
+                    primary: true;
+                    clicked => {
+                        calc-convert(havecon.text,amountcon.text, wantcon.text)
+                    }
+            }
+            }
+        }
+        HorizontalLayout{
+                alignment: center;
+                Rectangle{
+                    Text{
+                    text: root.results;
+                    font-size: 18px;
+                    font-family: "Times New Roman";
+
+                    }
+                }
+            }
+      }
+}
